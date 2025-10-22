@@ -97,23 +97,30 @@ Claude의 새로운 세션을 시작할 때:
 ```
 ssq-docs/
 ├── README.md                    # 이 파일
-├── frontend/                    # 프론트엔드 관련 문서
-│   ├── architecture.md          # 아키텍처 개요
-│   ├── routing.md               # 라우팅 구조
-│   └── modules/                 # 기능 모듈별 문서
-├── backend/                     # 백엔드 관련 문서
-│   ├── architecture.md          # 아키텍처 개요
-│   ├── api.md                   # API 구조
-│   └── modules/                 # 기능 모듈별 문서
-├── business-logic/              # 비즈니스 로직 문서
-│   ├── 360-feedback.md          # 360도 피드백
-│   ├── evaluation.md            # 평가 시스템
-│   └── auth-flow.md             # 인증/로그인 플로우
-├── agents/                      # Claude Agent 관련
-│   └── sub-agents.md            # Sub agent 정의
-└── claude-config/               # Claude 설정 가이드
-    └── setup.md                 # 초기 설정 방법
+├── update-repos.sh              # 레포 최신화 스크립트
+├── .gitignore                   # git 제외 항목
+├── docs/                        # 문서 디렉토리
+│   └── ppfront/                 # ppfront 문서
+│       ├── overview.md          # ✅ 프로젝트 전체 개요 및 기능 영역
+│       ├── architecture.md      # ✅ 아키텍처 상세 (Container/Presentational 패턴)
+│       ├── checklist.md         # ✅ 전체 기능 체크리스트
+│       └── modules/             # 📝 기능별 상세 문서 (작성 예정)
+│           ├── objectives.md
+│           ├── appraisals.md
+│           └── ...
+├── build_record/                # 빌드 일지
+│   └── 20251022_build_day_1.md # ✅ Day 1 작업 기록
+├── ppfront/                     # 프론트엔드 레포 (talenx 브랜치)
+├── ppback/                      # 백엔드 레포 (talenx-dev 브랜치)
+├── talenx-admin/                # 관리자 시스템 (dev 브랜치)
+├── theplus-back/                # 시스템 백엔드 (talenx-dev 브랜치)
+├── perpl-download/              # 다운로드 서비스 (talenx 브랜치)
+└── perpl-notification/          # 알림 서비스 (dev 브랜치)
 ```
+
+**범례:**
+- ✅ 작성 완료
+- 📝 작성 예정
 
 ## 문서 작성 원칙
 
@@ -136,6 +143,13 @@ ssq-docs/
 - 각 문서는 독립적으로 읽을 수 있어야 함
 - 필요한 배경 정보 포함
 - 관련 문서로의 명확한 참조
+
+### 5. 빌드 레코드 작성
+- **모든 작업 후 build_record/ 업데이트 필수**
+- 날짜별 파일 형식: `YYYYMMDD_build_day_N.md`
+- 작업 내용, 결정 사항, 완료 체크리스트 기록
+- 다음 작업 계획 명시
+- 문서 추가/수정 시에도 빌드 레코드에 기록
 
 ## 해결하려는 문제
 
