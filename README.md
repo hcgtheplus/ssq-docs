@@ -21,20 +21,49 @@ SSQ 프로젝트를 위한 Claude AI 개발 문서 레포지토리입니다.
 
 ## 로컬 환경 구성
 
-각 개발자는 자신의 로컬 환경에 맞게 레포지토리를 구성할 수 있습니다. 예시:
+### 초기 설정
 
-```
-<your-workspace>/
-├── ssq-docs/          # 이 레포
-├── ppfront/           # 프론트엔드 레포
-├── ppback/            # 백엔드 레포
-├── talenx-admin/      # 관리자 시스템
-├── theplus-back/      # 시스템 백엔드
-├── perpl-download/    # 다운로드 서비스
-└── perpl-notification/ # 알림 서비스
+1. 이 레포지토리를 클론합니다:
+```bash
+git clone https://github.com/hcgtheplus/ssq-docs.git
+cd ssq-docs
 ```
 
-> **권장**: Claude 작업 시 모든 레포지토리를 같은 상위 디렉토리에 두고, 해당 디렉토리에서 Claude를 실행하면 모든 코드와 문서를 참조할 수 있습니다.
+2. 모든 관련 레포지토리를 한 번에 클론합니다:
+```bash
+./update-repos.sh
+```
+
+### 레포지토리 최신화
+
+작업 전에 모든 레포지토리를 최신 상태로 업데이트:
+```bash
+./update-repos.sh
+```
+
+이 스크립트는 다음 브랜치를 기준으로 모든 레포를 최신화합니다:
+- `ppfront` → talenx
+- `ppback` → talenx-dev
+- `talenx-admin` → dev
+- `theplus-back` → talenx-dev
+- `perpl-download` → talenx
+- `perpl-notification` → dev
+
+### 디렉토리 구조
+
+```
+ssq-docs/
+├── README.md              # 이 레포
+├── update-repos.sh        # 레포 최신화 스크립트
+├── ppfront/               # 프론트엔드 레포 (talenx)
+├── ppback/                # 백엔드 레포 (talenx-dev)
+├── talenx-admin/          # 관리자 시스템 (dev)
+├── theplus-back/          # 시스템 백엔드 (talenx-dev)
+├── perpl-download/        # 다운로드 서비스 (talenx)
+└── perpl-notification/    # 알림 서비스 (dev)
+```
+
+> **권장**: Claude 작업 시 이 디렉토리에서 실행하면 모든 코드와 문서를 참조할 수 있습니다.
 
 ## 사용 방법
 
