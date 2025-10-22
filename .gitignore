@@ -1,0 +1,33 @@
+# 참조용 레포지토리들 (git 관리 제외)
+ppfront/
+ppback/
+talenx-admin/
+theplus-back/
+perpl-download/
+perpl-notification/
+
+# Node modules
+node_modules/
+package-lock.json
+yarn.lock
+pnpm-lock.yaml
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Temp files
+*.tmp
+*.log
+
+# Build outputs
+dist/
+build/
+.next/
+out/
