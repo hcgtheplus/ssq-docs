@@ -1,10 +1,10 @@
 # 참조용 레포지토리들 (git 관리 제외)
-ppfront/
-ppback/
-talenx-admin/
-theplus-back/
-perpl-download/
-perpl-notification/
+/ppfront/
+/ppback/
+/talenx-admin/
+/theplus-back/
+/perpl-download/
+/perpl-notification/
 
 # Node modules
 node_modules/
