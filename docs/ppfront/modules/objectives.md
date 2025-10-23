@@ -13,12 +13,51 @@
 
 1. [개요](#개요)
 2. [주요 기능](#주요-기능)
+   - [1. 목표 생성 및 관리](#1-목표-생성-및-관리)
+   - [2. Key Results 관리](#2-key-results-핵심-성과-관리)
+   - [3. 목표 목록 조회](#3-목표-목록-조회)
+   - [4. 목표 맵](#4-목표-맵-objective-map)
+   - [5. 목표 가중치 설정](#5-목표-가중치-설정)
+   - [6. 체크인](#6-체크인-check-in)
+   - [7. 고급 설정](#7-고급-설정-advanced-options)
+   - [8. AI 목표 추천](#8-ai-목표-추천-objective-ai-recommendation)
+   - [9. 목표 활동 제한 설정](#9-목표-활동-제한-설정)
 3. [데이터 구조](#데이터-구조)
+   - [Objective (목표)](#objective-목표)
+   - [Key Result (핵심 성과)](#key-result-핵심-성과)
+   - [Objective Stage (목표 단계)](#objective-stage-목표-단계)
 4. [파일 구조](#파일-구조)
+   - [Redux 모듈](#redux-모듈)
+   - [컴포넌트](#컴포넌트)
+   - [컨테이너](#컨테이너)
+   - [페이지](#페이지)
+   - [유틸리티](#유틸리티)
+   - [Hooks](#hooks)
 5. [주요 플로우](#주요-플로우)
+   - [1. 목표 생성 플로우](#1-목표-생성-플로우)
+   - [2. 목표 리스트 조회 플로우](#2-목표-리스트-조회-플로우)
+   - [3. Key Result 진행률 계산 플로우](#3-key-result-진행률-계산-플로우)
+   - [4. 목표 가중치 승인 플로우](#4-목표-가중치-승인-플로우)
 6. [Redux 상태 관리](#redux-상태-관리)
+   - [State 구조](#state-구조)
+   - [주요 액션](#주요-액션)
 7. [API 엔드포인트](#api-엔드포인트)
+   - [목표 CRUD](#목표-crud)
+   - [목표 리스트](#목표-리스트)
+   - [목표 마감](#목표-마감)
+   - [Key Results](#key-results)
+   - [체크인](#체크인)
+   - [가중치](#가중치)
+   - [파일](#파일)
+   - [댓글/피드백](#댓글피드백)
+   - [설정/태그](#설정태그)
+   - [AI 추천](#ai-추천)
 8. [주요 컴포넌트](#주요-컴포넌트)
+   - [1. ObjectiveForm.jsx](#1-objectiveformjsx---목표-생성수정-폼)
+   - [2. KeyResults.jsx](#2-keyresultsjsx---key-results-관리)
+   - [3. KeyResultInput.jsx](#3-keyresultinputjsx---key-result-개별-입력)
+   - [4. MemberObjectiveList.jsx](#4-memberobjectivelistjsx---구성원별-목표-리스트)
+   - [5. ObjectiveCard](#5-objectivecard---목표-카드)
 
 ---
 
@@ -37,6 +76,16 @@
 ---
 
 ## 주요 기능
+
+> **빠른 참조**:
+> - 목표 생성/수정/삭제 → [#1](#1-목표-생성-및-관리)
+> - Key Results 관리 (4가지 방식) → [#2](#2-key-results-핵심-성과-관리)
+> - 목표 목록 (4가지 탭) → [#3](#3-목표-목록-조회)
+> - 목표 맵 (조직 트리) → [#4](#4-목표-맵-objective-map)
+> - 가중치 설정/승인 → [#5](#5-목표-가중치-설정)
+> - 체크인 (진행 업데이트) → [#6](#6-체크인-check-in)
+> - 고급 설정 (7가지 옵션) → [#7](#7-고급-설정-advanced-options)
+> - AI 목표 추천 → [#8](#8-ai-목표-추천-objective-ai-recommendation)
 
 ### 1. 목표 생성 및 관리
 
@@ -372,6 +421,14 @@ interface IObjectiveAfterWeightChangeItem {
 ---
 
 ## 파일 구조
+
+> **빠른 참조**:
+> - Redux 모듈 → [objectives.js](#redux-모듈), [objectives/](#redux-모듈)
+> - 컴포넌트 → [form/](#컴포넌트), [list/](#컴포넌트), [show/](#컴포넌트), [map/](#컴포넌트), [weight/](#컴포넌트)
+> - 컨테이너 → [Form.jsx](#컨테이너), [List.jsx](#컨테이너), [Show.jsx](#컨테이너)
+> - 페이지 → [new/](#페이지), [list/](#페이지), [show/](#페이지)
+> - Hook → [useObjectiveAIRecommendation](#hooks)
+> - Lib → [objectives.js](#유틸리티), [constants.js (findIntervalProgress)](#유틸리티)
 
 ### Redux 모듈
 
@@ -809,6 +866,18 @@ LOAD_TAGS                       // 태그 로드
 ---
 
 ## API 엔드포인트
+
+> **빠른 참조**:
+> - 목표 CRUD → [GET/POST/PATCH/DELETE /objectives](#목표-crud)
+> - 목표 리스트 → [GET /objectives?view_type=](#목표-리스트)
+> - 목표 마감 → [POST /close_requests](#목표-마감)
+> - Key Results → [GET/POST/PATCH /key_results](#key-results)
+> - 체크인 → [POST /checkins](#체크인)
+> - 가중치 → [GET/PATCH /objective_weights](#가중치)
+> - 파일 업로드 → [POST /files](#파일)
+> - 댓글/피드백 → [POST/PATCH/DELETE /comments](#댓글피드백)
+> - 태그/설정 → [GET /objective_tags, /objective_settings](#설정태그)
+> - AI 추천 → [GET /ai_features, POST /ai/recommendations](#ai-추천)
 
 ### 목표 CRUD
 
