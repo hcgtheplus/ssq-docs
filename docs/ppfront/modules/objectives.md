@@ -472,13 +472,16 @@ Component: components/objective/form/content/KeyResultInput.jsx
     ├─ onChange 이벤트
     ├─ 관리방식 확인 (달성률/절대값/구간/여부)
     ├─ 구간 타입 확인 (increase/decrease)
-    ├─ 구간 옵션 확인 (more_than, less_than 등)
+    ├─ 구간 옵션 확인 (over/greater/under/less)
     ↓
-Lib: lib/objectives.js → findIntervalProgress()
-    ├─ 진행률 계산 로직
-    │   예: 구간 + increase + more_than
-    │   progress = (currentValue - startValue) / (targetValue - startValue) * 100
-    ├─ 진행률 보정 (0-100 범위 제한)
+Lib: lib/constants.js → findIntervalProgress()
+    ├─ 진행률 계산 로직 (구간 방식)
+    │   역순으로 구간 값 검색하여 매칭:
+    │   - over: value <= targetValue
+    │   - greater: value < targetValue
+    │   - under: value >= targetValue
+    │   - less: value > targetValue
+    ├─ 매칭된 구간의 progress 반환 (0-100)
     ↓
 Component: 진행률 표시
     ├─ BarGraph.tsx 업데이트
