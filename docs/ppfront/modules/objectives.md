@@ -171,7 +171,95 @@ handleCheckedChange = event => {
 };
 ```
 
-### 8. 목표 활동 제한 설정
+### 8. AI 목표 추천 (Objective AI Recommendation)
+
+목표 생성 시 AI가 맞춤형 목표를 추천하는 기능입니다.
+
+#### 주요 특징:
+
+1. **추천 가능 여부 확인**
+   - Workspace 설정에서 `use_ai_objective_recommendation` 옵션 확인
+   - API: `GET /workspaces/:workspaceId/ai_features?type=user`
+   - Hook: `useObjectiveAIRecommendation` - `hasRecommendationAvailable` 상태
+
+2. **AI 추천 버튼**
+   - 목표 생성 페이지 상단에 표시
+   - 조건: `!isEdit && hasRecommendationAvailable && !isRecommendationCheckLoading`
+   - 비활성화 조건: 상위 목표 핵심성과 연계 시 (`isConnectedWithSuperKeyResult`)
+   - 컴포넌트: [ObjectiveAIRecommendationButton.jsx](../../ppfront/src/components/AI_objective/on_create_recommend/ObjectiveAIRecommendationButton.jsx)
+
+3. **추천 생성 프로세스**
+   ```
+   User: "AI 목표 추천" 버튼 클릭
+       ↓
+   Hook: useObjectiveAIRecommendation.handleModalOpen()
+       ├─ 모달 즉시 열기
+       ├─ 로딩 상태 표시
+       ├─ API: POST /workspaces/:workspaceId/objectives/ai_recommendation
+       │   └─ Body: { prompt: AI_FEATURE_OBJECTIVE_RECOMMENDATION_PROMPT }
+       ↓
+   Response: recommendedOkrs[]
+       ├─ priorityRank (추천순위)
+       ├─ confidence (신뢰도)
+       ├─ objective { name, description }
+       ├─ keyResults[]
+       ├─ alignment (상위 목표 연계성)
+       ├─ references (참조 근거)
+       ├─ differentiation (기존 목표와의 차별점)
+       └─ expectedImpact (기대 효과)
+       ↓
+   Modal: ObjectiveAIRecommendationModal
+       ├─ 추천 목표 리스트 표시
+       ├─ 각 항목 확장/축소 가능
+       ├─ 사용자 선택
+       └─ "확인" 클릭
+       ↓
+   Form: onApplyAiRecommendation(selectedOKR)
+       ├─ 목표명 자동 입력
+       ├─ 설명 자동 입력
+       └─ Key Results 자동 생성
+   ```
+
+4. **에러 처리**
+   - API 실패 시: `errorMessage` 표시
+   - AbortController로 중복 요청 방지
+   - 모달 닫을 때 진행 중인 요청 중단
+
+#### 구현 위치:
+
+- **Hook**: [hooks/AI_objective/on_create_recommend/useObjectiveAIRecommendation.jsx](../../ppfront/src/hooks/AI_objective/on_create_recommend/useObjectiveAIRecommendation.jsx)
+- **Button**: [components/AI_objective/on_create_recommend/ObjectiveAIRecommendationButton.jsx](../../ppfront/src/components/AI_objective/on_create_recommend/ObjectiveAIRecommendationButton.jsx)
+- **Modal**: [components/AI_objective/on_create_recommend/ObjectiveAIRecommendationModal.jsx](../../ppfront/src/components/AI_objective/on_create_recommend/ObjectiveAIRecommendationModal.jsx)
+- **Form 통합**: [components/objective/form/index.jsx:357-381, 500-511, 756-766](../../ppfront/src/components/objective/form/index.jsx)
+
+```javascript
+// Hook 사용 (components/objective/form/index.jsx:357-372)
+const {
+  aiRecommendationModalOpen,
+  aiRecommendationLoading,
+  recommendedOKRs,
+  selectedOKRPriorityRank,
+  errorMessage,
+  expandedPriorityRanks,
+  hasRecommendationAvailable,
+  isRecommendationCheckLoading,
+  handleModalOpen,
+  handleModalClose,
+  handleOKRSelection,
+  handleConfirmSelection,
+  toggleExpanded,
+} = useObjectiveAIRecommendation({ workspaceId });
+
+// AI 추천 적용 (components/objective/form/index.jsx:375-381)
+const handleConfirmAISelection = () => {
+  const selectedOKR = handleConfirmSelection();
+  if (selectedOKR) {
+    onApplyAiRecommendation(selectedOKR);
+  }
+};
+```
+
+### 9. 목표 활동 제한 설정
 
 - 비활성 알림 설정
 - 목표 활동 기간 제한
@@ -843,6 +931,43 @@ GET    /workspaces/:workspaceId/objective_settings
 
 GET    /workspaces/:workspaceId/objective_tags
        → 태그 목록 조회
+```
+
+### AI 추천
+
+```
+GET    /workspaces/:workspaceId/ai_features?type=user
+       → AI 기능 사용 가능 여부 확인
+       Response: { use_ai_objective_recommendation: boolean }
+
+POST   /workspaces/:workspaceId/ai/objective_insights/recommendations
+       → AI 목표 추천 요청
+       Body: { prompt: string }
+       Response: {
+         success: boolean,
+         message?: string,
+         recommended_okrs?: [
+           {
+             priority_rank: number,           // 추천순위
+             confidence: number,               // 신뢰도 (0-100)
+             objective: {
+               name: string,
+               description: string
+             },
+             key_results: [
+               {
+                 name: string,
+                 description: string,
+                 management_type: string       // "달성률" | "절대값" | "구간" | "여부"
+               }
+             ],
+             alignment: string,                // 상위 목표 연계성
+             references: string[],             // 참조 근거
+             differentiation: string,          // 기존 목표와의 차별점
+             expected_impact: string           // 기대 효과
+           }
+         ]
+       }
 ```
 
 ---
