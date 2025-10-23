@@ -74,10 +74,25 @@ SSQ는 엔터프라이즈급 HR/HCM 성과관리 플랫폼입니다.
 - [docs/ppfront/checklist.md](docs/ppfront/checklist.md) - 기능별 상세 체크리스트
   - COMMON, 성과관리, 업무관리, 360 진단, 평가관리 체크리스트
 
-**예정된 문서**:
+**모듈별 상세 문서**:
 
-- docs/ppfront/modules/ - 기능별 상세 문서
-  - objectives.md, appraisals.md, feedbacks.md 등
+- [docs/ppfront/modules/objectives.md](docs/ppfront/modules/objectives.md) - **목표 관리 완전 문서화** ✅
+  - 1,100+ lines, 100% 정확도 검증 완료
+  - 9가지 주요 기능 (생성/관리, Key Results, 목록, 맵, 가중치, 체크인, 고급설정, AI추천)
+  - 완전한 파일 구조 (Redux 모듈, 컴포넌트, 컨테이너, 페이지)
+  - 4가지 주요 플로우 다이어그램
+  - Redux 상태 관리 (50+ 액션 타입)
+  - 30+ API 엔드포인트
+  - 60+ 항목 목차로 빠른 참조 가능
+
+**예정된 모듈 문서**:
+
+- docs/ppfront/modules/appraisals.md - 평가 관리 (다음 목표 🎯)
+- docs/ppfront/modules/multi_source_feedbacks.md - 360 피드백
+- docs/ppfront/modules/task_board.md - 업무보드
+- docs/ppfront/modules/feedbacks.md - 피드백 (배지)
+- docs/ppfront/modules/one_on_one.md - 1:1 미팅
+- docs/ppfront/modules/reviews.md - 리뷰
 
 ### ppback (백엔드)
 
@@ -98,9 +113,9 @@ SSQ는 엔터프라이즈급 HR/HCM 성과관리 플랫폼입니다.
 
 ### 빌드 기록
 
-- [build_record/20251022_build_day_1.md](build_record/20251022_build_day_1.md) - Day 1 작업 일지
-- [build_record/20251023_build_day_2.md](build_record/20251023_build_day_2.md) - Day 2 작업 일지
-- [build_record/roadmap.md](build_record/roadmap.md) - 중장기 로드맵
+- [build_record/20251022_build_day_1.md](build_record/20251022_build_day_1.md) - Day 1: ppfront 기본 문서 6개 완성
+- [build_record/day2.md](build_record/day2.md) - Day 2: objectives.md 완전 문서화 (1,100+ lines)
+- [build_record/roadmap.md](build_record/roadmap.md) - 중장기 로드맵 (2025-10-23 업데이트)
 
 ---
 
@@ -156,6 +171,7 @@ SSQ는 엔터프라이즈급 HR/HCM 성과관리 플랫폼입니다.
 - 목표 (Objectives), 피드백 (Feedbacks), 1:1 미팅, 리뷰
 - 문서: [docs/ppfront/overview.md](docs/ppfront/overview.md#2-성과관리)
 - 체크리스트: [docs/ppfront/checklist.md](docs/ppfront/checklist.md#성과관리)
+- **상세 문서**: [docs/ppfront/modules/objectives.md](docs/ppfront/modules/objectives.md) ✅
 
 ### 3. 업무관리
 
@@ -202,8 +218,11 @@ SSQ는 엔터프라이즈급 HR/HCM 성과관리 플랫폼입니다.
 
 현재 진행 중인 작업은 [build_record/roadmap.md](build_record/roadmap.md)를 참고하세요.
 
-**Phase 1 우선순위:**
+**Phase 1 진행 상황:**
 
-1. ppfront 기본 문서 완성 (tech-stack, project-structure, code-style)
-2. 주요 모듈 문서화 (objectives, appraisals)
-3. ppback 문서 시작
+1. ✅ ppfront 기본 문서 6개 완성 (Day 1)
+   - tech-stack, project-structure, code-style, core-files, architecture, architecture-patterns
+2. ✅ modules/objectives.md 완전 문서화 (Day 2)
+   - 1,100+ lines, 할루시네이션 체크 완료
+3. 🎯 다음: modules/appraisals.md
+4. ⏳ ppback 문서 시작
