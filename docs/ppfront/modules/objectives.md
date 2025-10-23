@@ -97,11 +97,11 @@
 ### 2. Key Results (핵심 성과) 관리
 
 - Key Result 추가/수정/삭제
-- 관리방식 설정 (4가지 방식)
-  - **달성률**: 퍼센트 기반 진행률 관리
-  - **절대값**: 고정된 목표값 달성 여부
-  - **구간**: 시작값-목표값 구간 내 진행률 (증가/감소, 이상/미만/초과/이하)
-  - **여부**: 완료/미완료 이진 관리
+- 관리방식 설정 (4가지 방식 - `kind` 필드)
+  - **progress** (달성률): 퍼센트 기반 진행률 관리
+  - **unit** (절대값): 고정된 목표값 달성 여부
+  - **interval** (구간): 시작값-목표값 구간 내 진행률 (증가/감소, 이상/미만/초과/이하)
+  - **boolean** (여부): 완료/미완료 이진 관리
 - 진행률 자동 계산
 - 상위 목표 연계
 
@@ -373,8 +373,9 @@ interface IObjectiveItemKeyResult {
   weight: number;                   // 가중치 (%)
 
   // 진행률 계산 관련
-  intervalType: string;             // 구간 타입 (increase, decrease)
-  intervalOption: string;           // 구간 옵션 (more_than, less_than, over, under)
+  kind: string;                     // 관리방식 ("progress" | "unit" | "boolean" | "interval")
+  intervalType: string;             // 구간 타입 (increase, decrease) - kind가 "interval"일 때만
+  intervalOption: string;           // 구간 옵션 (over, greater, under, less) - kind가 "interval"일 때만
   startValue: number;               // 시작값
   targetValue: number;              // 목표값
   currentValue: number;             // 현재값
