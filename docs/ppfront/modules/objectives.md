@@ -104,7 +104,74 @@
 - 진행률 자동 계산
 - 체크인 이력 관리
 
-### 7. 목표 활동 제한 설정
+### 7. 고급 설정 (Advanced Options)
+
+목표 생성/수정 폼에서 **"고급 설정"** 체크박스를 통해 추가 옵션들을 표시/숨김 처리합니다.
+
+#### 고급 설정 활성화 시 표시되는 항목:
+
+1. **관련 사용자 설정** (RelatedUserForm)
+   - 관리자 (Managers) 지정
+   - 팔로워 (Followers) 지정
+   - 조건: `hasAdvancedObjectiveCreateOptions || managers.length === 0 || isDefaultManagersEmpty`
+
+2. **목표 가중치 설정** (ObjectiveWeightForm)
+   - 목표 가중치 입력 (%)
+   - 조건: `hasAdvancedObjectiveCreateOptions && useWeightWithObjectivePage`
+
+3. **직접 승인 설정** (DirectApprovalForm)
+   - 체크인 직접 승인
+   - 수정 직접 승인
+   - 마감 직접 승인
+   - 삭제 직접 승인
+   - 조건: `hasAdvancedObjectiveCreateOptions && canEditDirectApprovalSetting`
+
+4. **비활성 알림 기간** (InactiveAlertTerm)
+   - 목표 활동이 없을 때 알림 기간 설정 (일)
+   - 기본값: 28일
+   - 조건: `hasAdvancedObjectiveCreateOptions && !isSKBioscienceWorkspace`
+
+5. **태그 설정** (TagSetting)
+   - 목표 태그 선택
+   - 조건: `hasAdvancedObjectiveCreateOptions || useTagsRequired`
+
+6. **공개 범위 설정** (PrivacyForm)
+   - 전체 공개 (all)
+   - 선택 공개 (select) - 특정 사용자/팀만
+   - 비공개 (private)
+   - 조건: `hasAdvancedObjectiveCreateOptions || (privacy === "select" && selectAuthorizedMembers.length === 0)`
+
+7. **검토자 설정** (ReviewerForm)
+   - 목표 검토자 지정
+   - 조건: `hasAdvancedObjectiveCreateOptions || !reviewer || isDefaultReviewerEmpty`
+
+#### 구현 위치:
+
+- **Component**: [components/objective/form/index.jsx:488-498](../../ppfront/src/components/objective/form/index.jsx#L488-L498)
+- **State**: [containers/objective/Form.jsx:70](../../ppfront/src/containers/objective/Form.jsx#L70)
+- **Handler**: [containers/objective/Form.jsx:1039-1048](../../ppfront/src/containers/objective/Form.jsx#L1039-L1048)
+
+```javascript
+// 고급 설정 체크박스 (components/objective/form/index.jsx:488-498)
+<CheckBox
+  name="hasAdvancedObjectiveCreateOptions"
+  checked={hasAdvancedObjectiveCreateOptions}
+  onChange={onCheckedChange}
+  disabled={canNotCheckAdvancedObjectiveCreateOption}
+  label={t("NEW.advancedOption")} // "고급 설정"
+/>
+
+// 상태 변경 핸들러 (containers/objective/Form.jsx:1039-1048)
+handleCheckedChange = event => {
+  const { target: { name, checked } } = event;
+  this.setState(
+    { [name]: checked, promptStatus: true },
+    this.isObjectiveStateChanged
+  );
+};
+```
+
+### 8. 목표 활동 제한 설정
 
 - 비활성 알림 설정
 - 목표 활동 기간 제한
@@ -406,16 +473,35 @@ Container: containers/objective/Form.jsx
     ├─ 주기 로드
     ├─ 태그 로드
     ├─ 설정 로드
+    ├─ State: hasAdvancedObjectiveCreateOptions = false (초기값)
     ↓
 Component: components/objective/form/index.jsx
-    └─ content/ObjectiveForm.jsx
-        ├─ 목표명 입력
-        ├─ Key Results 입력 (content/KeyResults.jsx)
-        ├─ 담당자/팀 선택
-        ├─ 태그 선택 (TagSetting.tsx)
-        ├─ 공개 설정 (Privacy.jsx)
-        ├─ 검토자 선택 (Reviewer.jsx)
-        ├─ 직접 승인 설정 (DirectApproval.jsx)
+    ├─ 필수 항목 표시 (*)
+    ├─ "고급 설정" 체크박스
+    │   └─ onChange → handleCheckedChange()
+    │       └─ setState({ hasAdvancedObjectiveCreateOptions: checked })
+    │
+    ├─ ObjectiveForm (항상 표시)
+    │   └─ content/ObjectiveForm.jsx
+    │       ├─ 목표명 입력 (필수)
+    │       ├─ 주기 선택 (필수)
+    │       ├─ 기간 선택
+    │       ├─ 설명 입력
+    │       └─ 담당자/팀 선택
+    │
+    ├─ KeyResults (항상 표시)
+    │   └─ content/KeyResults.jsx
+    │       ├─ Key Result 추가/삭제
+    │       └─ 진행률 관리방식 설정
+    │
+    └─ 고급 설정 섹션 (hasAdvancedObjectiveCreateOptions = true 일 때만 표시)
+        ├─ RelatedUserForm (관리자, 팔로워)
+        ├─ ObjectiveWeightForm (목표 가중치)
+        ├─ DirectApprovalForm (직접 승인 설정)
+        ├─ InactiveAlertTerm (비활성 알림)
+        ├─ TagSetting (태그)
+        ├─ PrivacyForm (공개 범위)
+        └─ ReviewerForm (검토자)
         ↓
 Container: handleSubmit()
     ├─ dispatch(createObjective)
