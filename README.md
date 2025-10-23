@@ -56,8 +56,14 @@ cd ssq-docs
 ```
 ssq-docs/
 ├── README.md              # 이 레포
+├── DOCS.md                # 전체 문서 네비게이션 허브
 ├── update-repos.sh        # 레포 최신화 스크립트
+├── .gitignore             # git 제외 항목
+├── docs/                  # 문서 디렉토리
+│   └── ppfront/           # ppfront 문서 (모듈별 상세 문서)
+├── build_record/          # 빌드 일지 (작업 기록 및 로드맵)
 ├── ppfront/               # 프론트엔드 레포 (talenx)
+├── ppfront.wiki/          # 프론트엔드 위키 (GitHub Wiki 클론)
 ├── ppback/                # 백엔드 레포 (talenx-dev)
 ├── talenx-admin/          # 관리자 시스템 (dev)
 ├── theplus-back/          # 시스템 백엔드 (talenx-dev)
@@ -99,6 +105,7 @@ Claude의 새로운 세션을 시작할 때:
 ```
 ssq-docs/
 ├── README.md                    # 이 파일
+├── DOCS.md                      # 전체 문서 네비게이션 허브
 ├── update-repos.sh              # 레포 최신화 스크립트
 ├── .gitignore                   # git 제외 항목
 ├── docs/                        # 문서 디렉토리
@@ -115,6 +122,7 @@ ssq-docs/
 │   ├── day2.md                  # ✅ Day 2 작업 기록 (objectives.md 완성)
 │   └── roadmap.md               # ✅ 중장기 로드맵
 ├── ppfront/                     # 프론트엔드 레포 (talenx 브랜치)
+├── ppfront.wiki/                # 프론트엔드 위키 (GitHub Wiki 클론)
 ├── ppback/                      # 백엔드 레포 (talenx-dev 브랜치)
 ├── talenx-admin/                # 관리자 시스템 (dev 브랜치)
 ├── theplus-back/                # 시스템 백엔드 (talenx-dev 브랜치)
