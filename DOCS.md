@@ -36,27 +36,48 @@ SSQ는 엔터프라이즈급 HR/HCM 성과관리 플랫폼입니다.
 
 ### ppfront (프론트엔드)
 
-현재 문서:
+**기본 문서**:
 
-- [docs/ppfront/overview.md](docs/ppfront/overview.md) - 전체 개요
+- [docs/ppfront/overview.md](docs/ppfront/overview.md) - 전체 개요 및 빠른 참조
   - 5개 주요 영역 (COMMON, 성과관리, 업무관리, 360 진단, 평가관리)
-  - 기술 스택 (React 17, TypeScript, Vite, Redux)
-  - 프로젝트 구조 (Container/Presentational 패턴)
+  - 기술 스택 요약, 프로젝트 구조 요약
   - 개발 환경 및 실행 명령어
+
+**상세 문서**:
+
+- [docs/ppfront/tech-stack.md](docs/ppfront/tech-stack.md) - 기술 스택 상세
+  - React, Redux, Material-UI 버전 및 설정
+  - 사용 라이브러리 목록 및 용도
+- [docs/ppfront/project-structure.md](docs/ppfront/project-structure.md) - 프로젝트 구조 및 파일 위치
+  - 디렉토리별 역할 및 파일 목록
+  - 경로 별칭, 파일 명명 규칙
+  - 모듈 경계 및 기능별 매핑
+- [docs/ppfront/architecture.md](docs/ppfront/architecture.md) - 아키텍처 패턴 및 데이터 흐름
+  - Container/Presentational 패턴
+  - Redux 데이터 흐름 및 Redux-Pender 사용법
+  - 전형적인 기능 구현 플로우 (목표 리스트 예시)
+- [docs/ppfront/architecture-patterns.md](docs/ppfront/architecture-patterns.md) - 아키텍처 패턴 상세 가이드
+  - Container/Presentational 패턴 상세 및 리팩토링 예시
+  - Redux Ducks 패턴
+  - Workspace Hardcoding Management (additional_features.json)
+  - 평가 시스템 상세 (점수 계산, 응답 타입, 변경 처리)
+- [docs/ppfront/code-style.md](docs/ppfront/code-style.md) - 코딩 규칙 및 컨벤션
+  - TypeScript 설정, ESLint/Prettier 규칙
+  - Material-UI 중앙 집중식 import 규칙
+  - Import 순서, 네이밍 규칙
+- [docs/ppfront/core-files.md](docs/ppfront/core-files.md) - 핵심 파일 및 유틸리티
+  - App.jsx, vite.config.ts, tsconfig.json 등 핵심 설정
+  - 주요 유틸리티 라이브러리
+
+**기능별 문서**:
+
 - [docs/ppfront/checklist.md](docs/ppfront/checklist.md) - 기능별 상세 체크리스트
-  - COMMON 영역 체크리스트
-  - 성과관리 영역 체크리스트
-  - 업무관리 영역 체크리스트
-  - 360 진단 영역 체크리스트
-  - 평가관리 영역 체크리스트
+  - COMMON, 성과관리, 업무관리, 360 진단, 평가관리 체크리스트
 
-예정된 문서:
+**예정된 문서**:
 
-- docs/ppfront/tech-stack.md - 기술 스택 상세
-- docs/ppfront/project-structure.md - 프로젝트 구조 상세
-- docs/ppfront/code-style.md - 코딩 규칙 및 컨벤션
-- docs/ppfront/core-files.md - 핵심 파일 및 유틸리티
 - docs/ppfront/modules/ - 기능별 상세 문서
+  - objectives.md, appraisals.md, feedbacks.md 등
 
 ### ppback (백엔드)
 
