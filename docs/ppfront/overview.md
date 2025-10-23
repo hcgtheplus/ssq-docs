@@ -23,12 +23,12 @@ SSQ(ppfront)는 크게 5개의 주요 영역으로 구성되어 있습니다:
 - **대시보드**: 활동 타임라인, 구독 설정
 - **마이페이지**: 목표/피드백/업무보드/평가 통합 조회
 
-관련 코드:
+**관련 코드**:
 
-- [components/layout/](../../ppfront/src/components/layout): GNB, 레이아웃
-- [components/search/](../../ppfront/src/components/search): 검색
-- [components/main/](../../ppfront/src/components/main): 대시보드
-- [components/user_page/](../../ppfront/src/components/user_page): 마이페이지
+- `components/layout/`: GNB, 레이아웃
+- `components/search/`: 검색
+- `components/main/`: 대시보드
+- `components/user_page/`: 마이페이지
 
 ---
 
@@ -250,135 +250,125 @@ SSQ(ppfront)는 크게 5개의 주요 영역으로 구성되어 있습니다:
 ## SSQ 범위
 
 **SSQ는 성과/평가 영역만 관장합니다:**
-- ✅ 목표 (Objectives)
-- ✅ 피드백 (Feedbacks)
-- ✅ 1:1 미팅 (One-on-One)
-- ✅ 리뷰 (Reviews)
-- ✅ 업무보드 (Task Board)
-- ✅ 스크럼보드 (Scrum Board)
-- ✅ 360 진단 (Multi-Source Feedbacks)
-- ✅ 평가관리 (Appraisals)
+
+- ✅ 목표, 피드백, 1:1 미팅, 리뷰
+- ✅ 업무보드, 스크럼보드
+- ✅ 360 진단, 평가관리
 
 **SSQ 범위 외 (ppfront에 포함되지만 SSQ 아님):**
-- ❌ 근태 관리 (Attendance)
-- ❌ 인사 관리 (HRM)
-- ❌ 워크플로우 (Workflow)
-- ❌ 급여 관리 (Pay)
+
+- ❌ 근태 관리, 인사 관리, 워크플로우, 급여 관리
 
 ---
 
 ## 기술 스택
 
+**상세 문서**: [tech-stack.md](tech-stack.md)
+
 ### Core
 
-- **React**: 17.0.2
-- **TypeScript**: 5.3+ (strict mode)
-- **Vite**: 4.3.2 (빌드 도구)
+- React 17.0.2, TypeScript 5.3+, Vite 4.3.2
 
 ### State Management
 
-- **Redux**: 3.7.1 (전역 상태)
-- **Redux Thunk** + **Redux Pender**: 비동기 처리
-- **TanStack React Query v4**: 서버 상태 관리
+- Redux 3.7.1, Redux Thunk + Redux Pender
+- TanStack React Query v4
 
 ### UI Framework
 
-- **Material-UI v4**: 레거시 컴포넌트
-- **Material-UI v5**: 신규 컴포넌트 (@mui/material 5.13.0)
-- **Emotion**: CSS-in-JS
-- **TSS React**: Material-UI 스타일링
+- Material-UI v4/v5 (마이그레이션 중)
+- Emotion (CSS-in-JS)
 
-### Data Grid & Visualization
+### 주요 라이브러리
 
-- **AG Grid Enterprise**: 33.1.1 (메인 데이터 그리드)
-- **AG Charts**: 11.1.1
-- **Echarts**: 4.2.0-rc.2
-- **Recharts**: 2.1.1
-- **D3**: 7.8.5
-
-### Forms & Input
-
-- **Formik**: 2.2.5
-- **React Select**: 2.1.0
-- **React Flatpickr**: 날짜 선택
-
-### Document Processing
-
-- **React PDF Viewer**: 3.12.0
-- **JSPDF**: 3.0.1
-- **XLSX**: 0.18.5 (Excel 처리)
-- **React Froala WYSIWYG**: 4.0.8 (리치 텍스트 에디터)
-
-### 다국어 & 유틸리티
-
-- **i18next**: 21.8.11 (8개 언어 지원)
-- **Axios**: 1.7.9
-- **Lodash**: 4.17.15
-- **Moment**: 2.29.4
-
-### Monitoring & Tools
-
-- **Sentry**: 7.56.0 (에러 트래킹)
-- **Rails ActionCable**: 7.0.5 (WebSocket)
-- **PWA**: Workbox 기반
+- AG Grid Enterprise 33.1.1
+- i18next 21.8.11 (8개 언어)
+- Formik 2.2.5, Axios 1.7.9
+- Sentry 7.56.0
 
 ---
 
 ## 프로젝트 구조
 
+**상세 문서**: [project-structure.md](project-structure.md)
+
 ```
 ppfront/
 ├── src/
-│   ├── @types/                   # TypeScript 타입 정의
-│   ├── assets/                   # 정적 자산 및 설정 데이터
 │   ├── components/               # Presentational 컴포넌트
-│   ├── containers/               # Smart 컴포넌트 (비즈니스 로직)
+│   ├── containers/               # Container 컴포넌트 (Redux 연결)
 │   ├── pages/                    # 페이지 컴포넌트 (라우팅)
+│   ├── modules/                  # Redux 상태 관리 (Ducks 패턴)
 │   ├── hooks/                    # 커스텀 React Hooks
-│   ├── hoc/                      # Higher-Order Components
-│   ├── modules/                  # Redux 상태 관리
 │   ├── lib/                      # 유틸리티 함수
-│   ├── material/                 # Material-UI 커스텀
-│   ├── locales/                  # 다국어 리소스
-│   ├── images/                   # 이미지 자산
-│   ├── sass/                     # SCSS 스타일시트
-│   ├── config/                   # 앱 설정 (Redux Store 등)
-│   ├── App.jsx                   # 메인 앱 컴포넌트
-│   └── index.ts                  # 진입점
-├── public/                       # 정적 파일
-├── scripts/                      # 빌드/배포 스크립트
+│   ├── material/                 # Material-UI 중앙 집중식 import
+│   ├── locales/                  # 다국어 리소스 (8개 언어)
+│   ├── assets/                   # 정적 자산 및 고객사별 커스텀 데이터
+│   └── config/                   # Redux Store 등 앱 설정
 ├── vite.config.ts                # Vite 빌드 설정
 ├── tsconfig.json                 # TypeScript 설정
-├── package.json                  # 의존성 관리
-└── env-cmd-rc.js                 # 환경별 설정
+└── env-cmd-rc.js                 # 환경별 설정 (10+ 배포 환경)
 ```
 
 ### 아키텍처 패턴
 
-**Container/Presentational Pattern**
+**상세 문서**: [architecture-patterns.md](architecture-patterns.md)
 
-- [components/](../../ppfront/src/components): 순수 UI 컴포넌트 (props 기반)
-- [containers/](../../ppfront/src/containers): 상태 관리 및 비즈니스 로직
-- [pages/](../../ppfront/src/pages): 라우트별 페이지 레벨
+- **Container/Presentational Pattern**: UI와 로직 분리
+- **Redux Ducks Pattern**: 액션/리듀서를 단일 파일로 관리
+- **Workspace Hardcoding**: S3 기반 `additional_features.json`으로 워크스페이스별 기능 관리
 
-**주요 디렉토리 역할**
+---
 
-- [modules/](../../ppfront/src/modules): Redux 액션/리듀서 (상태 관리)
-- [hooks/](../../ppfront/src/hooks): 재사용 가능한 React Hooks
-- [lib/](../../ppfront/src/lib): 비즈니스 로직 유틸리티
-- [material/](../../ppfront/src/material): Material-UI 테마 및 커스텀 컴포넌트
+## 코드 스타일 및 규칙
+
+**상세 문서**: [code-style.md](code-style.md)
+
+### 주요 규칙
+
+- **TypeScript Strict Mode** 활성화
+- **경로 별칭 필수**: 상대 경로 import 금지 (`../` 사용 불가)
+- **Material-UI 중앙 집중식 import**: `material/` 폴더를 통한 import 필수
+  - 컴포넌트: `MUI` 접두사 (예: `MUIButton`)
+  - 아이콘: `Icon` 접미사 (예: `AddIcon`)
+- **ESLint + Prettier**: 자동 포맷팅
+- **Git Hooks**: Pre-commit 시 lint-staged 실행
+
+### Import 순서
+
+1. React, Redux
+2. External libraries
+3. Material-UI (`material/components`, `material/icons`)
+4. Containers
+5. Components
+6. Modules, Hooks, Lib
+
+---
+
+## 다국어 지원
+
+### 지원 언어 (8개)
+
+한국어(ko), 영어(en), 일본어(ja-JP), 중국어(zh-CN), 인도네시아어(id-ID), 베트남어(vi-VN), 태국어(th-TH)
+
+**구조**: `src/locales/{언어}/` 디렉토리에 JSON 파일로 관리
+
+---
+
+## 핵심 파일
+
+**상세 문서**: [core-files.md](core-files.md)
+
+- `src/App.jsx`: 메인 앱 컴포넌트 (라우팅, 인증)
+- `src/config/store.ts`: Redux Store 설정
+- `src/locales/i18n.ts`: i18next 설정
+- `vite.config.ts`: Vite 빌드 설정
+- `tsconfig.json`: TypeScript 설정
+- `env-cmd-rc.js`: 환경별 설정
 
 ---
 
 ## 개발 환경
-
-### 환경 변수 관리
-
-- [env-cmd-rc.js](../../ppfront/env-cmd-rc.js): 환경별 설정
-- 10+ 배포 환경 지원:
-  - development, staging, production
-  - demo, dump, dashboard
-  - talenx-staging, talenx-prod, talenx-demo 등
 
 ### 실행 명령어
 
@@ -389,103 +379,16 @@ yarn start
 # 프로덕션 빌드
 yarn build-app
 
-# 테스트
-yarn test                # Jest
-yarn test:playwright     # E2E 테스트
-
 # 배포
 yarn deploy:stag         # Staging
 yarn deploy:prod         # Production
 yarn deploy:talenx-prod  # Talenx Production
 ```
 
-### 빌드 설정
+### 환경 변수
 
-- **Vite** 기반 고속 빌드
-- 자동 코드 스플릿 (node_modules별 청크 분리)
-- 청크 크기 경고: 4096KB
-- 소스맵 생성 활성화
-- PWA 지원 (Workbox)
-
----
-
-## 코드 스타일 및 규칙
-
-### TypeScript 설정
-
-- **Strict Mode**: 활성화
-- **경로 별칭**: 17개 경로 매핑 활성화
-  - `components/*`, `containers/*`, `modules/*` 등
-- **noUnusedLocals**: true
-- **noUnusedParameters**: true
-
-### ESLint 규칙
-
-- TypeScript ESLint 사용
-- Prettier 통합
-- **상대 경로 import 금지**: `../` 사용 불가, 별칭 경로 사용 필수
-- Import 정렬: 그룹별 정렬 (외부 라이브러리 → 내부 모듈)
-- React Hooks 규칙 강제
-
-### Git Hooks
-
-- **Husky + Lint-staged**: Pre-commit 시 자동 포맷팅
-- **Pre-push**: Remote branch 체크
-- **Issue number 자동 추가**: 커밋 메시지에 이슈 번호 추가
-
----
-
-## 다국어 지원
-
-### 지원 언어
-
-- 한국어 (ko)
-- 영어 (en)
-- 일본어 (ja-JP)
-- 중국어 (zh-CN)
-- 인도네시아어 (id-ID)
-- 베트남어 (vi-VN)
-- 태국어 (th-TH)
-
-### 구조
-
-```
-src/locales/
-├── en/
-├── ko/
-├── ja-JP/
-├── zh-CN/
-├── id-ID/
-├── vi-VN/
-├── th-TH/
-└── i18n.ts
-```
-
-사용: [open-locales.js](../../ppfront/open-locales.js) 스크립트로 번역 파일 편집
-
----
-
-## 핵심 파일 및 유틸리티
-
-### 핵심 파일
-
-- [src/App.jsx](../../ppfront/src/App.jsx): 메인 앱 컴포넌트 (1332줄)
-  - 라우팅 설정
-  - 전역 레이아웃
-  - 인증 처리
-- [src/config/store.ts](../../ppfront/src/config/store.ts): Redux Store 설정
-- [src/locales/i18n.ts](../../ppfront/src/locales/i18n.ts): i18next 설정
-
-### 유틸리티 라이브러리 ([lib/](../../ppfront/src/lib))
-
-- [lib/appraisal/](../../ppfront/src/lib/appraisal): 평가 관련 로직
-- [lib/attendance/](../../ppfront/src/lib/attendance): 근태 로직
-- [lib/feedback/](../../ppfront/src/lib/feedback): 피드백 처리
-- [lib/multi_source/](../../ppfront/src/lib/multi_source): 360 피드백 로직
-- [lib/ibsheet/](../../ppfront/src/lib/ibsheet): IBSheet 설정
-- [lib/string/](../../ppfront/src/lib/string): 문자열 유틸
-- [lib/time/](../../ppfront/src/lib/time): 근무 유틸
-- [lib/error_message/](../../ppfront/src/lib/error_message): 에러 메시지 처리
+- 10+ 배포 환경 지원 (development, staging, production, demo, talenx-\* 등)
+- `env-cmd-rc.js`에서 환경별 설정 관리
 
 ---
 
@@ -493,43 +396,50 @@ src/locales/
 
 ### 1. Legacy & Modern 혼재
 
-- Material-UI v4와 v5가 동시에 사용됨
-- 점진적으로 v5로 마이그레이션 진행 중
+- Material-UI v4와 v5가 동시 사용 (v5로 마이그레이션 중)
 - Material Design Lite (MDL) 일부 사용
 
-### 2. 엔터프라이즈 도구
+### 2. 엔터프라이즈 도구 (라이센스 필요)
 
-- **AG Grid Pro**: 라이센스 필요
+- **AG Grid Enterprise**: 메인 데이터 그리드
 - **IBSheet**: 레거시 스프레드시트 컴포넌트
-- **Froala Editor**: 리치 텍스트 에디터 (상용)
+- **Froala Editor**: 리치 텍스트 에디터
 
 ### 3. 커스텀 구현
 
-- 각 고객사별 커스텀 로직 (Coway, Innocean, Maeil 등)
-- [assets/](../../ppfront/src/assets) 디렉토리에 고객사별 데이터
-- 커스텀 라우팅 처리 필요
+- 고객사별 커스텀 로직 (Coway, Innocean, Maeil 등)
+- `assets/` 디렉토리에 고객사별 데이터 및 설정
 
 ### 4. 성능 고려사항
 
 - 빌드 시 메모리: `max-old-space-size=8192` 필요
-- 큰 번들 크기: 청크 최적화 중요
-- CSS 코드 스플릿 비활성화됨
+- 청크 최적화 중요 (청크 크기 경고: 4096KB)
 
 ### 5. 보안
 
-- [credentials.json](../../ppfront/credentials.json): 암호화된 설정
+- `credentials.json`: 암호화된 설정
 - Sentry 에러 트래킹
-- ESLint 규칙: no-password-value
 
 ---
 
-## 다음 문서
+## 관련 문서
 
-- [tech-stack.md](tech-stack.md): 기술 스택 상세
-- [project-structure.md](project-structure.md): 프로젝트 구조 상세
-- [code-style.md](code-style.md): 코딩 규칙 및 컨벤션
-- [core-files.md](core-files.md): 핵심 파일 및 유틸리티 상세
-- [modules/](modules/): 기능별 상세 문서
+### 기본 문서
+
+- [tech-stack.md](tech-stack.md): 기술 스택 상세 (React, Redux, Material-UI 등)
+- [project-structure.md](project-structure.md): 프로젝트 구조 상세 (디렉토리별 역할)
+- [code-style.md](code-style.md): 코딩 규칙, ESLint/Prettier 설정, Import 순서
+- [core-files.md](core-files.md): 핵심 파일 상세 (App.jsx, vite.config.ts 등)
+- [architecture-patterns.md](architecture-patterns.md): 아키텍처 패턴 (Container/Presentational, Redux Ducks, 평가 시스템)
+
+### 기능별 체크리스트
+
+- [checklist.md](checklist.md): 모든 기능의 상세 체크리스트
+
+### 빌드 기록
+
+- [../../build_record/roadmap.md](../../build_record/roadmap.md): 문서화 로드맵
+- [../../build_record/20251023_build_day_2.md](../../build_record/20251023_build_day_2.md): Day 2 작업 일지
 
 ---
 
@@ -538,13 +448,12 @@ src/locales/
 ### 문서화 원칙
 
 - 이 문서는 LLM이 코드베이스를 이해하기 위한 가이드입니다
-- 실제 코드는 [ppfront/](../../ppfront) 디렉토리를 참조하세요
+- 실제 코드는 ppfront 레포지토리를 참조하세요
 - 문서와 코드가 불일치할 경우 코드가 우선이며, 문서를 업데이트해주세요
 
 ### 주요 브랜치
 
 - **talenx**: 현재 개발 기준 브랜치
-- 다른 환경별 브랜치도 존재할 수 있음
 
 ### 용어 정리
 
